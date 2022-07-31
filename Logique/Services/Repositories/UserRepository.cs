@@ -12,7 +12,7 @@ namespace Logique.Services.Repositories
 
         public UserRepository(LogiqueDBContext db)
         {
-            this._db = db;
+            _db = db;
         }
         public IEnumerable<User> GetUsers()
         {
@@ -35,7 +35,8 @@ namespace Logique.Services.Repositories
 
         public User? Login(User user)
         {
-            if (_db.users.Where(u => u.Email.Equals("admin@demo.com")).FirstOrDefault() == null)
+            var existAdmin = _db.users.Where(u => u.Email.Equals("admin@demo.com")).FirstOrDefault();
+            if (existAdmin == null)
             {
                 User add = new User();
                 user.Email = "admin@demo.com";
